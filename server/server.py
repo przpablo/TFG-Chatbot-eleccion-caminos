@@ -2,7 +2,14 @@ from historia import Historia
 
 class Server:
     def __init__(self):
-        self.historia_actual = self.crear_historia_principal()
+        self._historia_actual = self.crear_historia_principal()
+        self._sesiones = []
+
+    def historia_actual(self):
+        self._historia_actual
+
+    def sesiones(self):
+        return self._sesiones
 
     def crear_historia_principal(self):
         historia_inicio = Historia("Inicio", "Despiertas en una playa desierta. Puedes ir a la selva o a la cueva.")
@@ -29,12 +36,12 @@ class Server:
 
     def obtener_situacion(self):
         return {
-            "descripcion": self.historia_actual.descripcion,
+            "descripcion": self._historia_actual.descripcion,
             "opciones": [opcion.titulo for opcion in self.historia_actual.opciones]
         }
 
     def procesar_opcion(self, opcion):
-        if self.historia_actual.buscar_opcion(opcion):
-            self.historia_actual = self.historia_actual.buscar_opcion(opcion)
+        if self._historia_actual.buscar_opcion(opcion):
+            self._historia_actual = self._historia_actual.buscar_opcion(opcion)
             return self.obtener_situacion()
         return None
