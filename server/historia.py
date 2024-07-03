@@ -24,7 +24,20 @@ class Historia:
         return list(self._ramas)
 
     def agregar_rama(self, historia):
-        self._ramas.append(historia)
+        if historia.id < 1000:
+            raise ValueError(f"El ID de la historia {historia.id} no es válido. Debe ser mayor o igual a 1000.")
+        else:
+            self._ramas.append(historia)
+
+    def buscar_historia_por_id(self, idhistoria):
+        if self.id == idhistoria:
+            return self
+        else:
+            for historia in self._ramas:
+                resultado = historia.buscar_historia_por_id(idhistoria)
+                if resultado:
+                    return resultado
+            return None
 
     def buscar_rama_nombre(self, nombre):
         for historia in self._ramas:
