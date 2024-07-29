@@ -18,9 +18,9 @@ TOKEN = "7063061533:AAES88sHhQ-kgppCPIuuRVU0rAC-R0Z3Q5A"
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    # chat_id = update.effective_chat.id
-    # if chat_id not in sesiones:
-    #    sesiones[chat_id] = Sesion(chat_id, historia_inicial.id, historias)
+    chat_id = update.effective_chat.id
+    if chat_id not in sesiones:
+        sesiones.append(Sesion(chat_id, historia_inicial.id, historias))
     await update.message.reply_text("¡Bienvenido al juego de historias! "
                                     "\nEscribe /play para comenzar."
                                     "\nEscribe /help para explicarte mi funcionamiento.")

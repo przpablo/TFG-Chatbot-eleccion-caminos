@@ -1,14 +1,14 @@
 
 
 class Sesion:
-    def __init__(self, telefono, historial_actual, historias):
-        self._telefono = telefono
+    def __init__(self, id_usuario, historial_actual, historias):
+        self._id_usuario = id_usuario
         self._historial_actual = historial_actual
         self._historias = historias
 
     @property
-    def telefono(self):
-        return self._telefono
+    def id_usuario(self):
+        return self._id_usuario
 
     @property
     def historia_actual(self):
@@ -24,7 +24,7 @@ class Sesion:
             raise ValueError(f"El ID de la historia {idhistoria} no es válido. Debe ser mayor o igual a 1000.")
         elif self.buscar_historia_por_id(idhistoria) is None:
             raise ValueError(f"El ID de la historia {idhistoria} no es valido. La historia no existe.")
-        #elif self.buscar_historia_por_id(self._historial_actual).buscar_rama_id(idhistoria) is None:
+        # elif self.buscar_historia_por_id(self._historial_actual).buscar_rama_id(idhistoria) is None:
         #    raise ValueError(f"El ID de la historia {idhistoria} no es valido. La historia no es rama.")
         else:
             self._historial_actual = idhistoria
