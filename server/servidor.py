@@ -5,7 +5,8 @@ from server.historia import Historia
 
 
 def crear_historia_principal():
-    historia_inicio = Historia(1001, "Inicio", "Despiertas en una playa desierta. Puedes ir a selva o a cueva.")
+    historia_inicio = Historia(1001, "Inicio", "Despiertas en una playa desierta. "
+                                               "Puedes ir a la selva o a la cueva.")
 
     historia_selva = Historia(1002, "selva", "Estás en la selva. Hay un río y un sendero.")
     historia_cueva = Historia(1003, "cueva", "Estás en una cueva oscura. Hay un túnel y una salida.")
