@@ -4,23 +4,23 @@ from telegram.ext import Application, CommandHandler, ContextTypes
 
 from server.historia import Historia
 from server.sesion import Sesion
-from server.server import Server
+from server.servidor import Servidor
 
 # Inicializa las historias y sesiones
-server = Server()
-historias = server.historia_actual()
-sesiones = {}
+servidor = Servidor()
+historias = servidor.historia_actual()
+sesiones = servidor.sesiones()
 
-historia_inicial = Server.historia_actual().buscar_rama_id(1001)
+historia_inicial = historias.buscar_historia_por_id(1001)
 
 
 TOKEN = "7063061533:AAES88sHhQ-kgppCPIuuRVU0rAC-R0Z3Q5A"
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    chat_id = update.effective_chat.id
-    if chat_id not in sesiones:
-        sesiones[chat_id] = Sesion(chat_id, historia_inicial.id, historias)
+    # chat_id = update.effective_chat.id
+    # if chat_id not in sesiones:
+    #    sesiones[chat_id] = Sesion(chat_id, historia_inicial.id, historias)
     await update.message.reply_text("¡Bienvenido al juego de historias! "
                                     "\nEscribe /play para comenzar."
                                     "\nEscribe /help para explicarte mi funcionamiento.")

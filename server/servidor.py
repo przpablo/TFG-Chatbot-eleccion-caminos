@@ -1,6 +1,6 @@
 # Clase donde guardo la Historia y las Sesiones
 
-from historia import Historia
+from server.historia import Historia
 # from sesion import Sesion
 
 
@@ -28,7 +28,7 @@ def crear_historia_principal():
     return historia_inicio
 
 
-class Server:
+class Servidor:
     def __init__(self):
         self._historia_actual = crear_historia_principal()
         self._sesiones = []
