@@ -50,19 +50,26 @@ async def play(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def seguir(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-
     chat_id = update.effective_chat.id
     if chat_id in sesiones:
         sesion = sesiones[chat_id]
-        historia_actual = historia_inicial.buscar_rama_id(sesion.historia_actual)
+        # historia_actual = historia_inicial.buscar_rama_id(sesion.historia_actual)
+        historia_actual = historia_inicial.buscar_historia_por_id(sesion.historia_actual)
+
         if historia_actual:
-            # Encuentra la próxima rama basada en la elección del usuario
             eleccion = update.message.text.strip().lower()
-            nueva_historia = historia_actual.ramas
-            nueva_historia = next((rama for rama in historia_actual.ramas if rama.titulo.strip().lower() == eleccion), None)
+
+            # nueva_historia = next(
+            #    (rama for rama in historia_actual.ramas if rama.titulo.strip().lower() == eleccion),
+            #    None
+            #)
+
+            nueva_historia = historia_actual.buscar_rama_nombre(eleccion)
+
             if nueva_historia:
                 sesion.historia_actual = nueva_historia.id
-                await update.message.reply_text(nueva_historia.descripcion)
+                # sesion.historia_actual = nueva_historia
+                await update.message.reply_text(nueva_historia.descripcion, parse_mode='HTML')
             else:
                 await update.message.reply_text("Opción no válida. Intenta nuevamente.")
         else:

@@ -41,7 +41,7 @@ class Historia:
 
     def buscar_rama_nombre(self, nombre):
         for historia in self._ramas:
-            if historia.titulo == nombre:
+            if historia.titulo.strip().lower() == nombre.strip().lower():
                 return historia
         return None
 
