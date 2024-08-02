@@ -27,9 +27,12 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def ayuda(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:  # AÑADIR LO DE SESIONES
-    await update.message.reply_text("Al escribir /play se contará una historia, de la cual "
-                                    "tienes que elegir entre 2 caminos, ¿Como los eliges? "
-                                    "Pues simplemente escribiendo la palabra clave del camino.")
+    ayuda_texto = ("Al escribir /play se contará una historia, de la cual "
+                   "tienes que elegir entre 2 caminos. \n<b>¿Como los eliges?</b> "
+                   "Pues simplemente escribiendo la palabra clave del camino. "
+                   "\n(Las palabras clave son las palabras que aparecen exclusivamente "
+                   "en <b>negrita</b>.)")
+    await update.message.reply_text(ayuda_texto, parse_mode='HTML')
 
 
 async def play(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -38,14 +41,16 @@ async def play(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         sesion = sesiones[chat_id]
         historia_actual = historias.buscar_historia_por_id(sesion.historia_actual)
         if historia_actual:
-            await update.message.reply_text(historia_actual.descripcion)
+            mensaje = f'{historia_actual.descripcion}'
+            await update.message.reply_text(mensaje, parse_mode='HTML')
         else:
             await update.message.reply_text("Error al encontrar la historia actual.")
     else:
         await update.message.reply_text("Por favor, inicia el juego usando /start.")
 
 
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def seguir(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+
     chat_id = update.effective_chat.id
     if chat_id in sesiones:
         sesion = sesiones[chat_id]
@@ -53,7 +58,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         if historia_actual:
             # Encuentra la próxima rama basada en la elección del usuario
             eleccion = update.message.text.strip().lower()
-            nueva_historia = next((rama for rama in historia_actual.ramas if rama.titulo.lower() == eleccion), None)
+            nueva_historia = historia_actual.ramas
+            nueva_historia = next((rama for rama in historia_actual.ramas if rama.titulo.strip().lower() == eleccion), None)
             if nueva_historia:
                 sesion.historia_actual = nueva_historia.id
                 await update.message.reply_text(nueva_historia.descripcion)
@@ -76,7 +82,8 @@ if __name__ == "__main__":
     application.add_handler(CommandHandler("start", start))  # AQUI AÑADIR MAS OPCIONES
     application.add_handler(CommandHandler("play", play))
     application.add_handler(CommandHandler("help", ayuda))
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, seguir))
+    # application.add_handler(CommandHandler("seguir", seguir))
 
     # Inicia el bot y espera eventos (polling)
     application.run_polling(allowed_updates=Update.ALL_TYPES)

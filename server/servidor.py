@@ -6,12 +6,12 @@ from server.historia import Historia
 
 def crear_historia_principal():
     historia_inicio = Historia(1001, "inicio", "Despiertas en una playa desierta. "
-                                               "Puedes ir a la selva o a la cueva.")
+                                               "Puedes ir a la <b>selva</b> o a la <b>cueva</b>.")
 
     historia_selva = Historia(1002, "selva", "Estás en la selva y te encuentras"
                                              "con el mono Sam, te pregunta que a donde os dirigís "
-                                             "ahora, si al río o a un sendero un tanto peligroso.")
-    historia_cueva = Historia(1003, "cueva", "Estás en una cueva oscura. Hay un túnel y una salida.")
+                                             "ahora, si al <b>rio</b> o a un <b>camino</b> un tanto peligroso.")
+    historia_cueva = Historia(1003, "cueva", "Estás en una cueva oscura. Hay un <b>tunel</b> y una <b>salida</b>.")
 
     historia_inicio.agregar_rama(historia_selva)
     historia_inicio.agregar_rama(historia_cueva)
