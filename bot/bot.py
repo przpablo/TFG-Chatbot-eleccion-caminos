@@ -5,22 +5,22 @@ from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandl
 from server.historia import Historia
 from server.sesion import Sesion
 from server.servidor import Servidor
+from db.models import get_sesion, save_sesion
 
 # Inicializa las historias y sesiones
 servidor = Servidor()
 historias = servidor.historia_actual()
-sesiones = servidor.sesiones()
+# sesiones = servidor.sesiones()
 
 historia_inicial = historias.buscar_historia_por_id(1001)
-
 
 TOKEN = "7063061533:AAES88sHhQ-kgppCPIuuRVU0rAC-R0Z3Q5A"
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     chat_id = update.effective_chat.id
-    if chat_id not in sesiones:
-        sesiones[chat_id] = Sesion(chat_id, historia_inicial.id, historias)
+    if get_sesion(chat_id) is None:
+        save_sesion(chat_id, historia_inicial.id)
     await update.message.reply_text("¡Bienvenido al juego de historias! "
                                     "\nEscribe /play para comenzar."
                                     "\nEscribe /help para explicarte mi funcionamiento.")
@@ -37,9 +37,10 @@ async def ayuda(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:  # 
 
 async def play(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     chat_id = update.effective_chat.id
-    if chat_id in sesiones:
-        sesion = sesiones[chat_id]
-        historia_actual = historias.buscar_historia_por_id(sesion.historia_actual)
+    sesion = get_sesion(chat_id)
+    if sesion:
+        historia_actual = historias.buscar_historia_por_id(sesion[1])  # NO ESTOY SEGURO
+        # historia_actual = historias.buscar_historia_por_id(sesion)
         if historia_actual:
             mensaje = f'{historia_actual.descripcion}'
             await update.message.reply_text(mensaje, parse_mode='HTML')
@@ -51,24 +52,16 @@ async def play(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 async def seguir(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     chat_id = update.effective_chat.id
-    if chat_id in sesiones:
-        sesion = sesiones[chat_id]
-        # historia_actual = historia_inicial.buscar_rama_id(sesion.historia_actual)
-        historia_actual = historia_inicial.buscar_historia_por_id(sesion.historia_actual)
+    sesion = get_sesion(chat_id)
+    if sesion:
+        historia_actual = historia_inicial.buscar_historia_por_id(sesion[1])  # NO ESTOY SEGURO
 
         if historia_actual:
             eleccion = update.message.text.strip().lower()
-
-            # nueva_historia = next(
-            #    (rama for rama in historia_actual.ramas if rama.titulo.strip().lower() == eleccion),
-            #    None
-            #)
-
             nueva_historia = historia_actual.buscar_rama_nombre(eleccion)
 
             if nueva_historia:
-                sesion.historia_actual = nueva_historia.id
-                # sesion.historia_actual = nueva_historia
+                save_sesion(chat_id, nueva_historia.id)
                 await update.message.reply_text(nueva_historia.descripcion, parse_mode='HTML')
             else:
                 await update.message.reply_text("Opción no válida. Intenta nuevamente.")
@@ -79,6 +72,9 @@ async def seguir(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 if __name__ == "__main__":
+
+    from db.database import create_tables
+    create_tables()
 
     myBot = telegram.Bot(token=TOKEN)  # Bot con el TOKEN
 
