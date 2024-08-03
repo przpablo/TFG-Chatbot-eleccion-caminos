@@ -1,9 +1,10 @@
+# import os
 import telegram
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
 
-from server.historia import Historia
-from server.sesion import Sesion
+# from server.historia import Historia
+# from server.sesion import Sesion
 from server.servidor import Servidor
 from db.models import get_sesion, save_sesion
 

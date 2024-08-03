@@ -31,7 +31,7 @@ class TestHistoria(unittest.TestCase):
         self.assertEqual(2, len(self.historia.ramas))
 
     def test_creacion_sesion(self):
-        self.assertEqual(123454545, self.sesion1.telefono)
+        self.assertEqual(123454545, self.sesion1.id_usuario)
         self.assertEqual(1000, self.sesion1.historia_actual)
 
     def test_cambio_historia(self):

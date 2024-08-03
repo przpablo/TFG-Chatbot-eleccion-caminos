@@ -10,6 +10,7 @@ def get_connection():
 def create_tables():
     conn = get_connection()
     cursor = conn.cursor()
+    cursor.execute('''DROP TABLE IF EXISTS sesiones;''')  # Borrar??
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS sesiones (
         chat_id INTEGER PRIMARY KEY,
