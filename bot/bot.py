@@ -24,6 +24,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         save_sesion(chat_id, historia_inicial.id)
     await update.message.reply_text("¡Bienvenido al juego de historias! "
                                     "\nEscribe /play para comenzar."
+                                    "\nEscribe /inicio para ir al principio de la historia"
                                     "\nEscribe /help para explicarte mi funcionamiento.")
 
 
@@ -32,8 +33,22 @@ async def ayuda(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:  # 
                    "tienes que elegir entre 2 caminos. \n<b>¿Como los eliges?</b> "
                    "Pues simplemente escribiendo la palabra clave del camino. "
                    "\n(Las palabras clave son las palabras que aparecen exclusivamente "
-                   "en <b>negrita</b>.)")
+                   "en <b>negrita</b>.)"
+                   "\n¿Te has confundido o quieres volver al principio? Escribe /inicio"
+                   " y la historia volverá al punto de partida")
     await update.message.reply_text(ayuda_texto, parse_mode='HTML')
+
+
+async def inicio(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    chat_id = update.effective_chat.id
+    sesion = get_sesion(chat_id)
+    if sesion:
+        save_sesion(chat_id, historia_inicial.id) # Restablecer la historia al principio
+        await update.message.reply_text("Has vuelto al inicio de la historia.")
+
+        await update.message.reply_text(historia_inicial.descripcion, parse_mode='HTML')
+    else:
+        await update.message.reply_text("Por favor, inicia el juego usando /start.")
 
 
 async def play(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -86,6 +101,7 @@ if __name__ == "__main__":
     application.add_handler(CommandHandler("start", start))  # AQUI AÑADIR MAS OPCIONES
     application.add_handler(CommandHandler("play", play))
     application.add_handler(CommandHandler("help", ayuda))
+    application.add_handler(CommandHandler("inicio", inicio))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, seguir))
     # application.add_handler(CommandHandler("seguir", seguir))
 

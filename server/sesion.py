@@ -29,9 +29,9 @@ class Sesion:
         else:
             self._historial_actual = idhistoria
 
-    def buscar_historia_por_id(self, id_historia):
+    def buscar_historia_por_id(self, id_historia): # Revisar este método
         for historia in self._historias:
             resultado = historia.buscar_historia_por_id(id_historia)
             if resultado is not None:
                 return resultado
-        return resultado
+        return None

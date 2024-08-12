@@ -13,7 +13,7 @@ elegir el siguiente camino de la misma.
 
 ## Tecnologías utilizadas
 
-- Python, API python-telegram-bot
+- Python, API python-telegram-bot, Base de Datos SQLite
 
 ## Elementos necesarios para la ejecucición del Proyecto
 
@@ -23,6 +23,8 @@ elegir el siguiente camino de la misma.
 ```bash
 > pip install python-telegram-bot --upgrade
 ```
+
+- python-dotenv
 
 - Crear el bot en Telegram. Donde hay que seguir los siguientes pasos:
 
