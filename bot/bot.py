@@ -2,20 +2,16 @@
 import telegram
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
+from config.config import TOKEN
 
-# from server.historia import Historia
-# from server.sesion import Sesion
 from server.servidor import Servidor
 from db.models import get_sesion, save_sesion
 
 # Inicializa las historias y sesiones
 servidor = Servidor()
 historias = servidor.historia_actual()
-# sesiones = servidor.sesiones()
 
 historia_inicial = historias.buscar_historia_por_id(1001)
-
-TOKEN = "7063061533:AAES88sHhQ-kgppCPIuuRVU0rAC-R0Z3Q5A"
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
