@@ -25,6 +25,9 @@ elegir el siguiente camino de la misma.
 ```
 
 - python-dotenv
+```bash
+>pip install python-dotenv
+```
 
 - Crear el bot en Telegram. Donde hay que seguir los siguientes pasos:
 
@@ -37,9 +40,9 @@ elegir el siguiente camino de la misma.
 
 Sigue estos pasos para realizar el despliegue de la aplicación:
 
-1. Una vez creado el bot correctamente y demás simplemente tenemos que desplegar nuestro código o mediante el siguiente comando o ejecutandolo desde nuestro IDE.
+1. Una vez creado el bot correctamente y demás simplemente tenemos que desplegar nuestro código o mediante el siguiente comando desde el directorio raíz o ejecutandolo desde nuestro IDE.
 ```bash
-> python bot.py
+> python -m bot.bot
 ```
 
 Una vez realizados estos pasos el bot quedará encendido y ya podremos hablar con el mediante Telegram. Con el comando `/start` o `/help`.

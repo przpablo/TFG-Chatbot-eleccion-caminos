@@ -1,4 +1,10 @@
 import os
+from dotenv import load_dotenv
 
-TOKEN = os.getenv('TELEGRAM_TOKEN', '7063061533:AAES88sHhQ-kgppCPIuuRVU0rAC-R0Z3Q5A')
-DB_PATH = os.getenv('DB_PATH', 'ppparamos.db')
+load_dotenv()
+
+dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env')
+load_dotenv(dotenv_path=dotenv_path)
+
+TOKEN = os.getenv("TELEGRAM_TOKEN")
+DB_PATH = os.getenv("DB_PATH")

@@ -43,7 +43,7 @@ async def inicio(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     chat_id = update.effective_chat.id
     sesion = get_sesion(chat_id)
     if sesion:
-        save_sesion(chat_id, historia_inicial.id) # Restablecer la historia al principio
+        save_sesion(chat_id, historia_inicial.id)  # Restablecer la historia al principio
         await update.message.reply_text("Has vuelto al inicio de la historia.")
 
         await update.message.reply_text(historia_inicial.descripcion, parse_mode='HTML')
