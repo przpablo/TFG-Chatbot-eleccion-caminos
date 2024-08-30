@@ -18,7 +18,8 @@ def crear_historia_principal():
                                              "Un mono llamado Sam se te acerca, aparentemente amigable. "
                                              "Sam te pregunta hacia dónde te diriges: "
                                              "¿quieres seguir hacia el <b>rio</b> que se escucha a lo lejos, explorar "
-                                             "un <b>camino</b> que parece peligroso, o intentar subir a un <b>arbol</b>"
+                                             "un <b>sendero</b> que parece peligroso, o intentar subir a un "
+                                             "<b>arbol</b>"
                                              " alto para tener una mejor vista del área?")
 
     historia_cueva = Historia(1003, "cueva", "Ingresas a la cueva, el aire es fresco pero denso. La oscuridad es "
@@ -71,6 +72,8 @@ def crear_historia_principal():
     historia_sendero.agregar_rama(historia_cueva)
     historia_sendero.agregar_rama(historia_casa)
     historia_sendero.agregar_rama(historia_acantilado)
+
+    historia_acantilado.agregar_rama(historia_sendero)
 
     historia_arbol = Historia(1008, "arbol", "Subes al árbol con dificultad, pero la vista desde la cima es "
                                              "impresionante. Te haces una pequeña idea de la magnitud de la isla "

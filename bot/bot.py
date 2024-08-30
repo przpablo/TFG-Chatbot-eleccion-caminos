@@ -27,7 +27,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 async def ayuda(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:  # AÑADIR LO DE SESIONES
     ayuda_texto = ("Al escribir /play se contará una historia, de la cual "
                    "tienes que elegir entre 2 caminos. \n<b>¿Como los eliges?</b> "
-                   "Pues simplemente escribiendo la palabra clave del camino. "
+                   "Pues simplemente escribiendo la palabra clave SIN TILDE del camino . "
                    "\n(Las palabras clave son las palabras que aparecen exclusivamente "
                    "en <b>negrita</b>.)"
                    "\n¿Te has confundido o quieres volver al principio? Escribe /inicio"
