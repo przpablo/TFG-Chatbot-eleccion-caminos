@@ -44,8 +44,8 @@ def crear_historia_principal():
                                                "única opción.")
 
     historia_bote = Historia(1012, "bote", "Tras ir rio abajo y salvaros de un acantilado gracias al bote"
-                                           "llegáis al mar donde os avista un barco pesquero y os salva todos!"
-                                           "Acabéis conseguido salvaros! Pulsa /inicio si quieres reiniciar la "
+                                           " llegáis al mar donde os avista un barco pesquero y os salva todos!"
+                                           " Acabéis conseguido salvaros! Pulsa /inicio si quieres reiniciar la "
                                            "historia.")
 
     historia_rio.agregar_rama(historia_nadar)

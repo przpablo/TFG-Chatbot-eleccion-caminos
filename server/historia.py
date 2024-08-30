@@ -29,15 +29,25 @@ class Historia:
         else:
             self._ramas.append(historia)
 
-    def buscar_historia_por_id(self, idhistoria):
+    def buscar_historia_por_id(self, idhistoria, visitados=None):
+        if visitados is None:
+            visitados = set()
+
         if self.id == idhistoria:
             return self
-        else:
-            for historia in self._ramas:
-                resultado = historia.buscar_historia_por_id(idhistoria)
-                if resultado:
-                    return resultado
+
+        # Evitar un ciclo infinito
+        if self.id in visitados:
             return None
+
+        visitados.add(self.id)
+
+        for rama in self.ramas:
+            resultado = rama.buscar_historia_por_id(idhistoria, visitados)
+            if resultado is not None:
+                return resultado
+
+        return None
 
     def buscar_rama_nombre(self, nombre):
         for historia in self._ramas:

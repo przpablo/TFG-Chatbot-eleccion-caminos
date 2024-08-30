@@ -66,7 +66,7 @@ async def seguir(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     chat_id = update.effective_chat.id
     sesion = get_sesion(chat_id)
     if sesion:
-        historia_actual = historia_inicial.buscar_historia_por_id(sesion[1])  # NO ESTOY SEGURO
+        historia_actual = historias.buscar_historia_por_id(sesion[1])  # NO ESTOY SEGURO
 
         if historia_actual:
             eleccion = update.message.text.strip().lower()
