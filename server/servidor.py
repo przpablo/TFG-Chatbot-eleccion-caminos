@@ -76,7 +76,7 @@ def crear_historia_principal():
     historia_acantilado.agregar_rama(historia_sendero)
 
     historia_arbol = Historia(1008, "arbol", "Subes al árbol con dificultad, pero la vista desde la cima es "
-                                             "impresionante. Te haces una pequeña idea de la magnitud de la isla "
+                                             "impresionante. Te haces una pequeña idea de la magnitud de la isla, "
                                              "es inmensa. Desde allí, puedes ver un <b>oasis</b> en la selva que"
                                              " parece seguro, una <b>cueva</b> en la distancia que podría ofrecer "
                                              "refugio, o puedes intentar observar más animales en la selva en busqueda"
